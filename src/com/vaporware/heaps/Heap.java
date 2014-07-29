@@ -24,8 +24,14 @@ public class Heap {
         return temp;
     }
     private void bubbleUp() {
+        int parentLoc;
         //start at the last item added, go up the tree to it's proper spot
         //index/2-1 to get parent
+        if ((lastItem & 1) == 0) {
+            parentLoc = lastItem/2;
+        }
+        else parentLoc = lastItem/2 -1;//odd case
+
     }
     private void filterDown() {//this will overwrite the 'root'
         //move last item up, then filter down
