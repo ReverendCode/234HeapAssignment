@@ -1,5 +1,7 @@
 package com.vaporware.heaps;
 
+import java.util.EmptyStackException;
+
 /**
  * Created by Code on 7/29/14.
  */
@@ -10,6 +12,10 @@ public class Heap {
     private int arraySize = BIGNUM;
 
 
+    public Heap(int size) {
+        theHeap = new int[size];
+        arraySize = size;
+    }
     public Heap() {
         theHeap = new int[arraySize];
     }
@@ -19,6 +25,7 @@ public class Heap {
         bubbleUp();
     }
     public int getSmallest() {//the heap is weak sorted smallest first
+        if (isEmpty()) throw new EmptyStackException();
         int temp = theHeap[0];
         filterDown();
         return temp;
@@ -27,9 +34,10 @@ public class Heap {
         int parentLoc;
         //start at the last item added, go up the tree to it's proper spot
         //index/2-1 to get parent
+        if (lastItem==0) return;
         for (int index=lastItem;index>0;) {
-            if ((index & 1) == 0) parentLoc = index/2;//even case
-        else parentLoc = index/2 -1;//odd case
+            if ((index & 1) == 0) parentLoc = index/2-1;//even case
+        else parentLoc = index/2 ;//odd case
             
             if (theHeap[parentLoc] > theHeap[index]) {
                 swap(index, parentLoc); 
@@ -41,7 +49,7 @@ public class Heap {
     }
     private void filterDown() {//this will overwrite the 'root'
         //move last item up, then filter down
-        boolean smallerLeft;
+        boolean smallerLeft=false;
         theHeap[0] = theHeap[lastItem--];
         for (int index = 0;index <= lastItem;) {
             int leftChild = index*2+1;
@@ -86,8 +94,11 @@ public class Heap {
     }
 
 
+    public boolean isEmpty() {
+        return (lastItem<0);
+    }
 
-    private boolean isFull() {
+    public boolean isFull() {
         if (lastItem==arraySize-1) return true;
         return false;
     }
