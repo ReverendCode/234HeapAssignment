@@ -51,6 +51,8 @@ public class Heap {
         //move last item up, then filter down
         boolean smallerLeft=false;
         theHeap[0] = theHeap[lastItem--];
+
+
         for (int index = 0;index <= lastItem;) {
             int leftChild = index*2+1;
             int rightChild = index*2+2;
@@ -62,22 +64,25 @@ public class Heap {
                 }
                 else return;
             }//end leftChild only case
-            else {
+
+
+            else {//there are both left and right children
                 if (theHeap[leftChild] < theHeap[rightChild]) smallerLeft = true;
-                else smallerLeft = false;
+                else smallerLeft = false;//which child is smaller?
 
                 if (smallerLeft) {
                     if (theHeap[leftChild] < theHeap[index]) {
                         swap(leftChild,index);
                         index = leftChild;
                     }
+                    else return;
                 }
                 else {
-                    if (theHeap[rightChild] <= theHeap[index]) {
+                    if (theHeap[rightChild] < theHeap[index]) {
                         swap(rightChild,index);
                         index=rightChild;
                     }
-
+                    else return;
                 }
             }
             
