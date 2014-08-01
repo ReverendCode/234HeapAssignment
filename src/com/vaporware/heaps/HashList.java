@@ -54,7 +54,7 @@ public class HashList {
                 hashMarker=temp;
                 return true;
             }
-        } while (temp!=null);
+        } while (temp!=theHashTable[hashLoc]);
 
         return false;
     }
